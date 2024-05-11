@@ -18,3 +18,9 @@ class HHEmployer:
         response = requests.get(self.url, self.headers)
         result = response.json()
         return result
+
+    def get_data_vacancies(self,url):
+        # params = {'text': 'МТС', 'page': 0, 'per_page': 100}
+        response = requests.get(url, self.headers,)
+        result = response.json()
+        return result

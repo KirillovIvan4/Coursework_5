@@ -20,26 +20,28 @@ get_data = class_get_data.GetData()
 postgres = class_postgres.PostgreSQL(host,user,password,db_name)
 # Создание таблици employers
 ##postgres.create_table_employers()
+# postgres.create_table_vacancies()
 
 ###empl = class_hh_employer.HHEmployer(dict_id_employers["Сбер"])
 ####empl.get_data_employer()
 
-# save = class_save_employer.SaveData()
+save = class_save_data.SaveData()
 # save.save_employers(dict_id_employers)
+save.save_vacancies('https://api.hh.ru/vacancies?employer_id=3776')
 
-data = get_data.get_data_employers()
+# data = get_data.get_data_employers()
 
 # Заролнение таблици employers данными
-for employer in data:
-     postgres.insert_data_into_table(employer['id'],
-                                    employer['name'],
-                                    employer['area']['name'],
-                                    employer['open_vacancies'],
-                                    employer['site_url'],
-                                    employer['alternate_url'],
-                                    employer['vacancies_url'])
-
-print("Данные о компаниях загдуженны")
+# for employer in data:
+#      postgres.insert_data_into_table_employers(employer['id'],
+#                                     employer['name'],
+#                                     employer['area']['name'],
+#                                     employer['open_vacancies'],
+#                                     employer['site_url'],
+#                                     employer['alternate_url'],
+#                                     employer['vacancies_url'])
+#
+# print("Данные о компаниях загдуженны")
 
 
 

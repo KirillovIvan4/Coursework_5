@@ -1,0 +1,132 @@
+[
+    {
+        "id": "3776",
+        "name": "МТС",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 4847,
+        "site_url": "http://www.mts.ru",
+        "alternate_url": "https://hh.ru/employer/3776",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=3776"
+    },
+    {
+        "id": "3529",
+        "name": "СБЕР",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 7092,
+        "site_url": "https://rabota.sber.ru/",
+        "alternate_url": "https://hh.ru/employer/3529",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=3529"
+    },
+    {
+        "id": "84585",
+        "name": "Авито",
+        "area": {
+            "id": "113",
+            "name": "Россия",
+            "url": "https://api.hh.ru/areas/113"
+        },
+        "open_vacancies": 352,
+        "site_url": "http://www.avito.ru",
+        "alternate_url": "https://hh.ru/employer/84585",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=84585"
+    },
+    {
+        "id": "4181",
+        "name": "Банк ВТБ (ПАО)",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 3110,
+        "site_url": "http://www.vtbcareer.com",
+        "alternate_url": "https://hh.ru/employer/4181",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=4181"
+    },
+    {
+        "id": "39305",
+        "name": "Газпром нефть",
+        "area": {
+            "id": "2",
+            "name": "Санкт-Петербург",
+            "url": "https://api.hh.ru/areas/2"
+        },
+        "open_vacancies": 2595,
+        "site_url": "http://www.gazprom-neft.ru",
+        "alternate_url": "https://hh.ru/employer/39305",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=39305"
+    },
+    {
+        "id": "4934",
+        "name": "билайн",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 1336,
+        "site_url": "http://www.beeline.ru",
+        "alternate_url": "https://hh.ru/employer/4934",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=4934"
+    },
+    {
+        "id": "1740",
+        "name": "Яндекс",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 973,
+        "site_url": "https://yandex.ru/jobs/",
+        "alternate_url": "https://hh.ru/employer/1740",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=1740"
+    },
+    {
+        "id": "1057",
+        "name": "Лаборатория Касперского",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 110,
+        "site_url": "http://www.kaspersky.ru",
+        "alternate_url": "https://hh.ru/employer/1057",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=1057"
+    },
+    {
+        "id": "15478",
+        "name": "VK",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 440,
+        "site_url": "https://vk.company/ru/",
+        "alternate_url": "https://hh.ru/employer/15478",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=15478"
+    },
+    {
+        "id": "87021",
+        "name": "WILDBERRIES",
+        "area": {
+            "id": "1",
+            "name": "Москва",
+            "url": "https://api.hh.ru/areas/1"
+        },
+        "open_vacancies": 952,
+        "site_url": "http://www.wildberries.ru",
+        "alternate_url": "https://hh.ru/employer/87021",
+        "vacancies_url": "https://api.hh.ru/vacancies?employer_id=87021"
+    }
+]
