@@ -3,7 +3,7 @@ class PostgreSQL:
     """
     Класс для работы с postgresql
     """
-    def __init__(self, host, user, password, db_name):
+    def __init__(self, host:str, user:str, password:str, db_name:str):
         self.host = host
         self.user = user
         self.password = password
