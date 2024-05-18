@@ -32,13 +32,14 @@ class SaveData:
         Метод сохраняет данные компаний в файл
         :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
         """
+        self.vacancies = []
 
-        self.vacancy = {}
         save_vacancies = class_hh_employer.HHEmployer("")
         data_vacancies_in_json = save_vacancies.get_data_vacancies(url)
 
         for vacancy_number in range(len(data_vacancies_in_json['items'])):
-            print(data_vacancies_in_json['items'][vacancy_number]['salary'])
+            self.vacancy = {}
+
             for key_data_employer in ['id', 'name', 'area', 'salary', 'snippet', 'alternate_url']:
                 #print(data_vacancies_in_json['items'][vacancy_number]['salary'])
                 if key_data_employer == 'salary':
@@ -58,8 +59,7 @@ class SaveData:
                         'responsibility']
                 else:
                     self.vacancy[key_data_employer] = data_vacancies_in_json['items'][vacancy_number][key_data_employer]
-            self.vacancies = [].append(self.vacancy)
-            print("_____________________________")
+            self.vacancies.append(self.vacancy)
         with open("data/vacancies.json", "w", encoding='utf-8') as file:
             json.dump(self.vacancies, file, ensure_ascii=False, indent=4)
     # def save_vacancies(self,url):
