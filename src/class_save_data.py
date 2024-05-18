@@ -1,4 +1,4 @@
-from src import class_hh_employer
+from src import class_hh_employer,utils
 import json
 class SaveData:
     """
@@ -46,20 +46,33 @@ class SaveData:
                         self.vacancy['salary_from'] = 0
                         self.vacancy['salary_to'] = 0
                         self.vacancy['currency'] = 'RUR'
+                        self.vacancy['average_salary_in_rubles'] = 0
                     elif data_vacancies_in_json['items'][vacancy_number]['salary']['from'] == None:
                         # Если зарплаты "от" нет, то приравниваю ее к 0
+                        # salary_from = 0
+                        #
                         self.vacancy['salary_from'] = 0
                         self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['to']
                         self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
                     elif data_vacancies_in_json['items'][vacancy_number]['salary']['to'] == None:
                         # Если зарплаты "до" нет, то приравниваю ее к зарплате от
                         self.vacancy['salary_from'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
                         self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
                         self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
                     else:
                         self.vacancy['salary_from'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
                         self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['to']
                         self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
+
                 elif key_data_employer == 'snippet':
                     self.vacancy['requirement'] = data_vacancies_in_json['items'][vacancy_number]['snippet'][
                         'requirement']

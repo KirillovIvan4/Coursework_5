@@ -97,6 +97,8 @@ class PostgreSQL:
                     area varchar(100) NOT NULL,
                     salary_from smallint,
                     salary_to smallint,
+                    currency varchar(1000) NOT NULL,
+                    average_salary_in_rubles smallint,
                     requirement varchar(1000) NOT NULL,
                     responsibility varchar(1000) NOT NULL,
                     alternate_url varchar(100) NOT NULL)"""
@@ -106,7 +108,7 @@ class PostgreSQL:
         finally:
             if connection:
                 connection.close()
-    def insert_data_into_table_vacancies(self, id, name, area, salary_from, salary_to, requirement, responsibility,alternate_url):
+    def insert_data_into_table_vacancies(self, id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url):
         """
         Метод Добавляет данные о компании в таблицу employers
         :param id: id вакансии
@@ -114,6 +116,8 @@ class PostgreSQL:
         :param area: город, где вакансии находится
         :param salary_from: зарплата от
         :param salary_to: зарплата до
+        :param currency: валюта
+        :param average_salary_in_rubles: средняя зарплата в рублях
         :param requirement:требования
         :param responsibility: обязанности
         :param alternate_url: ссылка на вакансию на hh.ru
@@ -130,9 +134,9 @@ class PostgreSQL:
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
                 cursor.execute(
-                   """INSERT INTO employers (id, name, area, salary_from, salary_to, requirement, responsibility,alternate_url) VALUES
-                    (%s,%s,%s,%s,%s,%s,%s,%s)""",
-                   (id, name, area, salary_from, salary_to, requirement, responsibility,alternate_url)
+                   """INSERT INTO employers (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url) VALUES
+                    (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                   (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url)
                 )
 
 
