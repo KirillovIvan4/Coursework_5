@@ -33,26 +33,34 @@ class SaveData:
         :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
         """
         self.vacancies = []
-
         save_vacancies = class_hh_employer.HHEmployer("")
         data_vacancies_in_json = save_vacancies.get_data_vacancies(url)
-
         for vacancy_number in range(len(data_vacancies_in_json['items'])):
             self.vacancy = {}
-
+            # Перебираю ключи вакансии которые буду записывать
             for key_data_employer in ['id', 'name', 'area', 'salary', 'snippet', 'alternate_url']:
-                #print(data_vacancies_in_json['items'][vacancy_number]['salary'])
-                if key_data_employer == 'salary':
+                if key_data_employer == 'area':
+                    self.vacancy['area'] = data_vacancies_in_json['items'][vacancy_number]['area']['name']
+                elif key_data_employer == 'salary':
                     if data_vacancies_in_json['items'][vacancy_number]['salary'] == None:
                         self.vacancy['salary_from'] = 0
                         self.vacancy['salary_to'] = 0
+                        self.vacancy['currency'] = 'RUR'
                     elif data_vacancies_in_json['items'][vacancy_number]['salary']['from'] == None:
+                        # Если зарплаты "от" нет, то приравниваю ее к 0
                         self.vacancy['salary_from'] = 0
                         self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['to']
+                        self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
                     elif data_vacancies_in_json['items'][vacancy_number]['salary']['to'] == None:
+                        # Если зарплаты "до" нет, то приравниваю ее к зарплате от
                         self.vacancy['salary_from'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
-                        self.vacancy['salary_to'] = 0
-                if key_data_employer == 'snippet':
+                        self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
+                        self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
+                    else:
+                        self.vacancy['salary_from'] = data_vacancies_in_json['items'][vacancy_number]['salary']['from']
+                        self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['to']
+                        self.vacancy['currency'] = data_vacancies_in_json['items'][vacancy_number]['salary']['currency']
+                elif key_data_employer == 'snippet':
                     self.vacancy['requirement'] = data_vacancies_in_json['items'][vacancy_number]['snippet'][
                         'requirement']
                     self.vacancy['responsibility'] = data_vacancies_in_json['items'][vacancy_number]['snippet'][
