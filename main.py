@@ -1,7 +1,9 @@
-from src import class_hh_employer, class_postgres,class_save_data, class_get_data
+from src import class_hh_employer, class_postgres,class_save_data, class_get_data, utils
 from config import host,user,password, db_name
-import psycopg2
+#import psycopg2
 import json
+
+utils.record_exchange_rates()
 
 dict_id_employers = {
     "МТС":"3776",
@@ -20,7 +22,7 @@ get_data = class_get_data.GetData()
 postgres = class_postgres.PostgreSQL(host,user,password,db_name)
 # Создание таблици employers
 ##postgres.create_table_employers()
-# postgres.create_table_vacancies()
+#postgres.create_table_vacancies()
 
 ###empl = class_hh_employer.HHEmployer(dict_id_employers["Сбер"])
 ####empl.get_data_employer()
@@ -29,10 +31,10 @@ save = class_save_data.SaveData()
 # save.save_employers(dict_id_employers)
 save.save_vacancies('https://api.hh.ru/vacancies?employer_id=3776')
 
-# data = get_data.get_data_employers()
-
+data_employers = get_data.get_data_employers()
+data_vacancies = get_data.get_data_vacancies()
 # Заролнение таблици employers данными
-# for employer in data:
+# for employer in data_employers:
 #      postgres.insert_data_into_table_employers(employer['id'],
 #                                     employer['name'],
 #                                     employer['area']['name'],
@@ -43,6 +45,23 @@ save.save_vacancies('https://api.hh.ru/vacancies?employer_id=3776')
 #
 # print("Данные о компаниях загдуженны")
 
+#Заролнение таблици employers данными
 
+
+for vacancies in data_vacancies:
+
+    postgres.insert_data_into_table_vacancies(vacancies['id'],
+                                              vacancies['name'],
+                                              vacancies['area'],
+                                              vacancies['salary_from'],
+                                              vacancies['salary_to'],
+                                              vacancies['currency'],
+                                              vacancies['average_salary_in_rubles'],
+                                              vacancies['requirement'],
+                                              vacancies['responsibility'],
+                                              vacancies['alternate_url'])
+
+
+print("Данные о компаниях загдуженны")
 
 

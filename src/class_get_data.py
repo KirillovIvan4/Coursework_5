@@ -15,3 +15,12 @@ class GetData:
         with open("data/employers.json", "r", encoding='utf-8') as json_data:
             data = json.load(json_data)
         return data
+
+    def get_data_vacancies(self):
+        """
+        Метод получает данные из файла employers.json
+        :return: Возвращает список со словарями данных компаний
+        """
+        with open("data/vacancies.json", "r", encoding='utf-8') as json_data:
+            data = json.load(json_data)
+        return data

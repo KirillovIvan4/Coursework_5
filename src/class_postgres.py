@@ -95,10 +95,10 @@ class PostgreSQL:
                     id serial PRIMARY KEY,
                     name varchar(100) NOT NULL,
                     area varchar(100) NOT NULL,
-                    salary_from smallint,
-                    salary_to smallint,
+                    salary_from int,
+                    salary_to int,
                     currency varchar(1000) NOT NULL,
-                    average_salary_in_rubles smallint,
+                    average_salary_in_rubles int,
                     requirement varchar(1000) NOT NULL,
                     responsibility varchar(1000) NOT NULL,
                     alternate_url varchar(100) NOT NULL)"""
@@ -134,7 +134,7 @@ class PostgreSQL:
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
                 cursor.execute(
-                   """INSERT INTO employers (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url) VALUES
+                   """INSERT INTO vacancies (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url) VALUES
                     (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                    (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url)
                 )
