@@ -29,7 +29,7 @@ postgres = class_postgres.PostgreSQL(host,user,password,db_name)
 
 save = class_save_data.SaveData()
 # save.save_employers(dict_id_employers)
-save.save_vacancies('https://api.hh.ru/vacancies?employer_id=3776')
+save.save_vacancies('87021')
 
 data_employers = get_data.get_data_employers()
 data_vacancies = get_data.get_data_vacancies()
@@ -48,20 +48,20 @@ data_vacancies = get_data.get_data_vacancies()
 #Заролнение таблици employers данными
 
 
-for vacancies in data_vacancies:
-
-    postgres.insert_data_into_table_vacancies(vacancies['id'],
-                                              vacancies['name'],
-                                              vacancies['area'],
-                                              vacancies['salary_from'],
-                                              vacancies['salary_to'],
-                                              vacancies['currency'],
-                                              vacancies['average_salary_in_rubles'],
-                                              vacancies['requirement'],
-                                              vacancies['responsibility'],
-                                              vacancies['alternate_url'])
-
-
-print("Данные о компаниях загдуженны")
-
+# for vacancies in data_vacancies:
+#
+#     postgres.insert_data_into_table_vacancies(vacancies['id'],
+#                                               vacancies['name'],
+#                                               vacancies['area'],
+#                                               vacancies['salary_from'],
+#                                               vacancies['salary_to'],
+#                                               vacancies['currency'],
+#                                               vacancies['average_salary_in_rubles'],
+#                                               vacancies['requirement'],
+#                                               vacancies['responsibility'],
+#                                               vacancies['alternate_url'])
+#
+#
+# print("Данные о компаниях загдуженны")
+#
 
