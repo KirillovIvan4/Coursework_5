@@ -28,6 +28,8 @@ def get_dict_exchange_rates():
         return exchange_rates
 
 def get_average_salary_in_rubles(salary_from, salary_to, currency):
+    """
+    Функция конвертирует курс валют в рубли"""
     exchange_rates = get_dict_exchange_rates()
     if currency == 'RUR':
         average_salary_in_rubles = int(salary_from + salary_to) /2
