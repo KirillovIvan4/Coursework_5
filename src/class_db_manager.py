@@ -22,7 +22,7 @@ class DBManager:
             connection.autocommit = True
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
-                cursor.execute("""SELECT name, open_vacancies FROM employers""")
+                cursor.execute("""SELECT name_employer, open_vacancies FROM employers""")
                 data = cursor.fetchall()
                 for i in data:
                     print(f"{i[0]} количество вакансай - {i[1]}")
@@ -152,7 +152,8 @@ ______________________________________________________________""")
                                )
                 data = cursor.fetchall()
                 for i in data:
-                    print(f"""{i}
+                    print(f"""Вакансия {i[0]} Ссылка на вакансию {i[4]}
+                Зарплата {i[1]} {i[2]}-{i[3]}
 ______________________________________________________________""")
         except Exception as _ex:
             print("[INFO] Error while working with PostgresSQL", _ex)
@@ -162,9 +163,9 @@ ______________________________________________________________""")
 
 from config import host,user,password, db_name
 
-db = DBManager(host,user,password,db_name)
+# db = DBManager(host,user,password,db_name)
 # db.get_companies_and_vacancies_count()
 # db.get_all_vacancies()
 # db.get_avg_salary()
 # db.get_vacancies_with_higher_salary()
-db.get_vacancies_with_keyword('Водитель')
+# db.get_vacancies_with_keyword('Водитель')
