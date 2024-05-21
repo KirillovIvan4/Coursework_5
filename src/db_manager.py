@@ -144,15 +144,11 @@ ______________________________________________________________""")
             connection.autocommit = True
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
-                # cursor.execute("""SELECT *
-                #         FROM vacancies
-                #         WHERE name_vacancy IN   ('Водитель')
-                #         """
-                #                )
+
                 cursor.execute("""SELECT *
                         FROM vacancies
-                        WHERE name_vacancy IN  (%s) """,
-                        (vacancy)
+                        WHERE name_vacancy LIKE '%s' """ %
+                        vacancy
                                )
                 data = cursor.fetchall()
                 for i in data:
