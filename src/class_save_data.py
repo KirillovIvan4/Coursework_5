@@ -1,4 +1,4 @@
-from src import class_hh_employer
+from src import class_hh_employer,utils
 import json
 class SaveData:
     """
@@ -27,35 +27,67 @@ class SaveData:
         with open("data/employers.json", "w", encoding='utf-8') as file:
             json.dump(self.employers, file, ensure_ascii=False, indent=4)
 
-    def save_vacancies(self,url):
+    def save_vacancies(self, id_employer):
         """
         Метод сохраняет данные компаний в файл
         :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
         """
-
-        self.vacancy = {}
+        self.vacancies = []
         save_vacancies = class_hh_employer.HHEmployer("")
-        data_vacancies_in_json = save_vacancies.get_data_vacancies(url)
+        data_vacancies_in_json, id_employer = save_vacancies.get_data_vacancies(id_employer)
 
         for vacancy_number in range(len(data_vacancies_in_json['items'])):
-            for key_data_employer in ['id', 'name', 'area', 'salary', 'snippet','alternate_url']:
-                print(key_data_employer)
-                if key_data_employer == 'salary':
-                    if key_data_employer['salary'] == None:
+            vacancies = data_vacancies_in_json['items'][vacancy_number]
+            self.vacancy = {}
+            self.vacancy['id_employer'] = id_employer
+            # Перебираю ключи вакансии которые буду записывать
+            for key_data_employer in ['id_vacancy', 'name', 'area', 'salary', 'snippet', 'alternate_url']:
+                if key_data_employer == 'id_vacancy':
+                    self.vacancy['id_vacancy'] = vacancies['id']
+                elif key_data_employer == 'area':
+                    self.vacancy['area'] = vacancies['area']['name']
+                elif key_data_employer == 'salary':
+                    if vacancies['salary'] == None:
                         self.vacancy['salary_from'] = 0
                         self.vacancy['salary_to'] = 0
-                    if key_data_employer['salary']['salary_from'] == None:
+                        self.vacancy['currency'] = 'RUR'
+                        self.vacancy['average_salary_in_rubles'] = 0
+                    elif vacancies['salary']['from'] == None:
+                        # Если зарплаты "от" нет, то приравниваю ее к 0
+                        # salary_from = 0
+                        #
                         self.vacancy['salary_from'] = 0
-                        self.vacancy['salary_to'] = data_vacancies_in_json['items'][vacancy_number]['salary']['salary_to']
-                    if key_data_employer['salary']['salary_to'] == None:
-                        self.vacancy['salary_from'] = data_vacancies_in_json['items'][vacancy_number]['salary']['salary_from']
-                        self.vacancy['salary_to'] = 0
-                if key_data_employer == 'snippet':
-                    self.vacancy['requirement'] = data_vacancies_in_json['items'][vacancy_number]['snippet']['requirement']
-                    self.vacancy['responsibility'] = data_vacancies_in_json['items'][vacancy_number]['snippet']['responsibility']
-                else:
-                    self.vacancy[key_data_employer] = data_vacancies_in_json['items'][vacancy_number][key_data_employer]
-            self.vacancies = [].append( self.vacancy)
+                        self.vacancy['salary_to'] = vacancies['salary']['to']
+                        self.vacancy['currency'] = vacancies['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
+                    elif vacancies['salary']['to'] == None:
+                        # Если зарплаты "до" нет, то приравниваю ее к зарплате от
+                        self.vacancy['salary_from'] = vacancies['salary']['from']
+                        self.vacancy['salary_to'] = vacancies['salary']['from']
+                        self.vacancy['currency'] = vacancies['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
+                    else:
+                        self.vacancy['salary_from'] = vacancies['salary']['from']
+                        self.vacancy['salary_to'] = vacancies['salary']['to']
+                        self.vacancy['currency'] = vacancies['salary']['currency']
+                        self.vacancy['average_salary_in_rubles'] = utils.get_average_salary_in_rubles(self.vacancy['salary_from'],
+                                                                                                      self.vacancy['salary_to'],
+                                                                                                      self.vacancy['currency'])
 
+                elif key_data_employer == 'snippet':
+                    self.vacancy['requirement'] = vacancies['snippet'][
+                        'requirement']
+                    self.vacancy['responsibility'] = vacancies['snippet'][
+                        'responsibility']
+                else:
+                    self.vacancy[key_data_employer] = vacancies[key_data_employer]
+            self.vacancies.append(self.vacancy)
+
+                # else:
+                #     break
         with open("data/vacancies.json", "w", encoding='utf-8') as file:
             json.dump(self.vacancies, file, ensure_ascii=False, indent=4)
