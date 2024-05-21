@@ -26,12 +26,12 @@ class PostgreSQL:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """CREATE TABLE employers(
-                    id serial PRIMARY KEY,
-                    name varchar(100) NOT NULL,
+                    id_employer serial PRIMARY KEY,
+                    name_employer varchar(100) NOT NULL,
                     area varchar(100) NOT NULL,
                     open_vacancies smallint NOT NULL,
                     site_url varchar(100) NOT NULL,
-                    alternate_url varchar(100) NOT NULL,
+                    alternate_url_employer varchar(100) NOT NULL,
                     vacancies_url varchar(100) NOT NULL)"""
                 )
         except Exception as _ex:
@@ -42,18 +42,18 @@ class PostgreSQL:
 
 
 
-    def insert_data_into_table_employers(self, id, name, area, open_vacancies, site_url, alternate_url, vacancies_url):
+    def insert_data_into_table_employers(self, id_employer, name_employer, area, open_vacancies, site_url, alternate_url, vacancies_url):
         """
         Метод Добавляет данные о компании в таблицу employers
-        :param id: id компании
-        :param name: название компании
+        :param id_employer: id компании
+        :param name_employer: название компании
         :param area: город, где компания находится
         :param open_vacancies: количество открытых вакансий
         :param site_url: ссылка на сайт компании
         :param alternate_url: ссылка на страницу компании на hh.ru
         :param vacancies_url: ссылка на вакансии компании на hh.ru
         """
-        d = 'dfgsfg'
+
         try:
             # Подключаемся к базе данных
             connection = psycopg2.connect(
@@ -65,8 +65,9 @@ class PostgreSQL:
             connection.autocommit = True
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
-                cursor.execute(
-                   (id, name, area, open_vacancies, site_url, alternate_url, vacancies_url)
+                cursor.execute("""INSERT INTO employers (id_employer, name_employer, area, open_vacancies, site_url, alternate_url_employer, vacancies_url) VALUES
+                    (%s,%s,%s,%s,%s,%s,%s)""",
+                   (id_employer, name_employer, area, open_vacancies, site_url, alternate_url, vacancies_url)
                 )
 
 
@@ -92,15 +93,16 @@ class PostgreSQL:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """CREATE TABLE vacancies(
-                    id serial PRIMARY KEY,
-                    name varchar(100) NOT NULL,
+                    id_vacancy serial PRIMARY KEY,
+                    id_employer int,
+                    name_vacancy varchar(100) NOT NULL,
                     area varchar(100) NOT NULL,
                     salary_from int,
                     salary_to int,
                     currency varchar(1000) NOT NULL,
                     average_salary_in_rubles int,
-                    requirement varchar(1000) NOT NULL,
-                    responsibility varchar(1000) NOT NULL,
+                    requirement varchar(1000) ,
+                    responsibility varchar(1000) ,
                     alternate_url varchar(100) NOT NULL)"""
                 )
         except Exception as _ex:
@@ -108,11 +110,12 @@ class PostgreSQL:
         finally:
             if connection:
                 connection.close()
-    def insert_data_into_table_vacancies(self, id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url):
+    def insert_data_into_table_vacancies(self,id_vacancy, id_employer,  name_vacancy, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url):
         """
         Метод Добавляет данные о компании в таблицу employers
-        :param id: id вакансии
-        :param name: название вакансии
+        :param id_vacancy: id вакансии
+        :param id_employer: id компании
+        :param name_vacancy: название вакансии
         :param area: город, где вакансии находится
         :param salary_from: зарплата от
         :param salary_to: зарплата до
@@ -134,9 +137,9 @@ class PostgreSQL:
             # Добавляем данные о компании в таблицу
             with connection.cursor() as cursor:
                 cursor.execute(
-                   """INSERT INTO vacancies (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url) VALUES
-                    (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-                   (id, name, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url)
+                   """INSERT INTO vacancies (id_vacancy, id_employer, name_vacancy, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url) VALUES
+                    (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                   (id_vacancy, id_employer, name_vacancy, area, salary_from, salary_to, currency, average_salary_in_rubles, requirement, responsibility,alternate_url)
                 )
 
 

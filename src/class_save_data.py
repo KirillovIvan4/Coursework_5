@@ -27,20 +27,24 @@ class SaveData:
         with open("data/employers.json", "w", encoding='utf-8') as file:
             json.dump(self.employers, file, ensure_ascii=False, indent=4)
 
-    def save_vacancies(self, url):
+    def save_vacancies(self, id_employer):
         """
         Метод сохраняет данные компаний в файл
         :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
         """
         self.vacancies = []
         save_vacancies = class_hh_employer.HHEmployer("")
-        data_vacancies_in_json, id_employer = save_vacancies.get_data_vacancies(url)
+        data_vacancies_in_json, id_employer = save_vacancies.get_data_vacancies(id_employer)
+
         for vacancy_number in range(len(data_vacancies_in_json['items'])):
             vacancies = data_vacancies_in_json['items'][vacancy_number]
             self.vacancy = {}
+            self.vacancy['id_employer'] = id_employer
             # Перебираю ключи вакансии которые буду записывать
-            for key_data_employer in ['id', 'name', 'area', 'salary', 'snippet', 'alternate_url']:
-                if key_data_employer == 'area':
+            for key_data_employer in ['id_vacancy', 'name', 'area', 'salary', 'snippet', 'alternate_url']:
+                if key_data_employer == 'id_vacancy':
+                    self.vacancy['id_vacancy'] = vacancies['id']
+                elif key_data_employer == 'area':
                     self.vacancy['area'] = vacancies['area']['name']
                 elif key_data_employer == 'salary':
                     if vacancies['salary'] == None:
@@ -82,5 +86,8 @@ class SaveData:
                 else:
                     self.vacancy[key_data_employer] = vacancies[key_data_employer]
             self.vacancies.append(self.vacancy)
+
+                # else:
+                #     break
         with open("data/vacancies.json", "w", encoding='utf-8') as file:
             json.dump(self.vacancies, file, ensure_ascii=False, indent=4)

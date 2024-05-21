@@ -18,11 +18,11 @@ class HHEmployer:
         url = 'https://api.hh.ru/employers/' + id_employer
         response = requests.get(url, self.headers)
         result = response.json()
-        return result, id_employer
+        return result
 
     def get_data_vacancies(self,id_employe):
-        # params = {'text': 'МТС', 'page': 0, 'per_page': 100}
+
         url = 'https://api.hh.ru/vacancies?employer_id=' + id_employe
-        response = requests.get(url, self.headers,params = {'page': 0, 'per_page': 100})
+        response = requests.get(url, headers=self.headers, params = {'page': 0, 'per_page': 100})
         result = response.json()
         return result, id_employe
