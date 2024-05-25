@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class DBManager:
     def __init__(self, host: str, user: str, password: str, db_name: str):
         self.host = host
@@ -25,8 +26,7 @@ class DBManager:
                 cursor.execute("""SELECT name_employer, open_vacancies FROM employers""")
                 data = cursor.fetchall()
                 for i in data:
-                    print(f"{i[0]} количество вакансай - {i[1]}")
-
+                    print(f"{i[0]} количество вакансий - {i[1]}")
 
         except Exception as _ex:
             print("[INFO] Error while working with PostgresSQL", _ex)
@@ -60,7 +60,6 @@ class DBManager:
                     Зарплата {i[2]} {i[3]}-{i[4]}
 ______________________________________________________________""")
 
-
         except Exception as _ex:
             print("[INFO] Error while working with PostgresSQL", _ex)
         finally:
@@ -69,7 +68,7 @@ ______________________________________________________________""")
 
     def get_avg_salary(self):
         """
-        Метод  получает среднюю зарплату по вакансиям.
+        Метод получает среднюю зарплату по вакансиям.
         """
         try:
             # Подключаемся к базе данных
@@ -128,8 +127,7 @@ ______________________________________________________________""")
             if connection:
                 connection.close()
 
-
-    def get_vacancies_with_keyword(self,vacancy):
+    def get_vacancies_with_keyword(self, vacancy):
         """
         Метод получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python.
         """
@@ -147,8 +145,7 @@ ______________________________________________________________""")
 
                 cursor.execute("""SELECT *
                         FROM vacancies
-                        WHERE name_vacancy LIKE '%s' """ %
-                        vacancy
+                        WHERE name_vacancy LIKE '%s' """ % vacancy
                                )
                 data = cursor.fetchall()
                 for i in data:
@@ -160,12 +157,3 @@ ______________________________________________________________""")
         finally:
             if connection:
                 connection.close()
-
-from config import host,user,password, db_name
-
-# db = DBManager(host,user,password,db_name)
-# db.get_companies_and_vacancies_count()
-# db.get_all_vacancies()
-# db.get_avg_salary()
-# db.get_vacancies_with_higher_salary()
-# db.get_vacancies_with_keyword('Водитель')

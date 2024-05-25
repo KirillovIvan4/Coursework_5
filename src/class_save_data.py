@@ -1,5 +1,7 @@
-from src import class_hh_employer,utils
+from src import class_hh_employer, utils
 import json
+
+
 class SaveData:
     """
     Клас для сохранения данных в файл
@@ -10,7 +12,7 @@ class SaveData:
         self.vacancies = []
         self.vacancy = {}
 
-    def save_employers(self,dict_id_employers):
+    def save_employers(self, dict_id_employers):
         """
         Метод сохраняет данные компаний в файл
         :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
@@ -30,7 +32,7 @@ class SaveData:
     def save_vacancies(self, id_employer):
         """
         Метод сохраняет данные компаний в файл
-        :param dict_id_employers: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
+        :param id_employer: Словарь со списком компаний состоящий из названия компании (ключ) и ее id (значение)
         """
         self.vacancies = []
         save_vacancies = class_hh_employer.HHEmployer("")
@@ -87,7 +89,5 @@ class SaveData:
                     self.vacancy[key_data_employer] = vacancies[key_data_employer]
             self.vacancies.append(self.vacancy)
 
-                # else:
-                #     break
         with open("data/vacancies.json", "w", encoding='utf-8') as file:
             json.dump(self.vacancies, file, ensure_ascii=False, indent=4)

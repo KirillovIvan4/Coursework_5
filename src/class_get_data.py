@@ -1,5 +1,6 @@
 import json
 
+
 class GetData:
     """
     Класс получает данные из файла

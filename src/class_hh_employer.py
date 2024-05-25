@@ -1,17 +1,17 @@
 import requests
-import json
+
 
 class HHEmployer:
     """
     Класс для получения данных компании с сайта hh.ru
     При объявлении класса необходимо ввести id компании
     """
-    def __init__(self, id_employer:str):
+    def __init__(self, id_employer: str):
         self.id_employer = id_employer
         self.url = 'https://api.hh.ru/employers/' + self.id_employer
         self.headers = {'User-Agent': 'HH-User-Agent'}
 
-    def get_data_employer(self,id_employer):
+    def get_data_employer(self, id_employer):
         """
         Метод get_data_employer возвращает словарь json с данными компании
         """
@@ -20,9 +20,9 @@ class HHEmployer:
         result = response.json()
         return result
 
-    def get_data_vacancies(self,id_employe):
+    def get_data_vacancies(self, id_employe):
 
         url = 'https://api.hh.ru/vacancies?employer_id=' + id_employe
-        response = requests.get(url, headers=self.headers, params = {'page': 0, 'per_page': 100})
+        response = requests.get(url, headers=self.headers, params={'page': 0, 'per_page': 100})
         result = response.json()
         return result, id_employe
