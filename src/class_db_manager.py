@@ -145,7 +145,7 @@ ______________________________________________________________""")
 
                 cursor.execute("""SELECT *
                         FROM vacancies
-                        WHERE name_vacancy LIKE '%s' """ % vacancy
+                        WHERE name_vacancy LIKE '%s' """ % f'%{vacancy}%'
                                )
                 data = cursor.fetchall()
                 for i in data:
